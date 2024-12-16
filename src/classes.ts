@@ -2,9 +2,15 @@
 
 class Car {
   //? Statit fields
-  static nextSerialNumber: number;
-  static generateserialNumber() {
-    return this.nextSerialNumber++;
+  //   static nextSerialNumber: number;
+  //   static generateserialNumber() {
+  //     return this.nextSerialNumber++;
+  //   }
+
+  //* access modifier on static members
+  private static nextSerialNumber: number;
+  private static generateSerialNumber() {
+    return this.nextSerialNumber;
   }
 
   //? Statiuc block
@@ -22,8 +28,20 @@ class Car {
   model: string;
   year: number;
 
-  serialNumber = Car.generateserialNumber();
+  //! not protected
+  //   serialNumber = Car.generateserialNumber();
 
+  //* Protected by access modifier
+  private _serialNumber = Car.generateSerialNumber();
+  protected get serialNumber(): number {
+    return this._serialNumber;
+  }
+
+  //* JS privuate fields => #
+  #serialNumber = Car.generateSerialNumber();
+  protected get privateSerialNumber(): number {
+    return this.#serialNumber;
+  }
   constructor(make: string, model: string, year: number) {
     this.make = make;
     this.model = model;
@@ -42,4 +60,4 @@ class Car {
 let sedan = new Car("Honda", "Accord", 2017);
 sedan.honk(5);
 
-Car.generateserialNumber();
+// Car.generateserialNumber();
