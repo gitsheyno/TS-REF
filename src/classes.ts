@@ -67,3 +67,62 @@ class Truck extends Car {
     return `h${"o".repeat(duration)}nk`;
   }
 }
+
+//* Type Gaurds
+
+interface CarLike {
+  make: string;
+  model: string;
+  year: number;
+}
+
+let maybeCar: any;
+
+// the guard
+function isCarLike(valueToTest: any): valueToTest is CarLike {
+  return (
+    valueToTest &&
+    typeof valueToTest === "object" &&
+    "make" in valueToTest &&
+    typeof valueToTest["make"] === "string" &&
+    "model" in valueToTest &&
+    typeof valueToTest["model"] === "string" &&
+    "year" in valueToTest &&
+    typeof valueToTest["year"] === "number"
+  );
+}
+
+// using the guard
+if (isCarLike(maybeCar)) {
+  let maybeCar: CarLike;
+}
+
+interface CarLike {
+  make: string;
+  model: string;
+  year: number;
+}
+
+let maybeCar2: any;
+
+// the guard
+function assertsIsCarLike(valueToTest: any): asserts valueToTest is CarLike {
+  if (
+    !(
+      valueToTest &&
+      typeof valueToTest === "object" &&
+      "make" in valueToTest &&
+      typeof valueToTest["make"] === "string" &&
+      "model" in valueToTest &&
+      typeof valueToTest["model"] === "string" &&
+      "year" in valueToTest &&
+      typeof valueToTest["year"] === "number"
+    )
+  )
+    throw new Error(`Value does not appear to be a CarLike${valueToTest}`);
+}
+
+// using the guard
+
+assertsIsCarLike(maybeCar2);
+maybeCar2;
