@@ -61,3 +61,9 @@ let sedan = new Car("Honda", "Accord", 2017);
 sedan.honk(5);
 
 // Car.generateserialNumber();
+
+class Truck extends Car {
+  override honk(duration: number): string {
+    return `h${"o".repeat(duration)}nk`;
+  }
+}
